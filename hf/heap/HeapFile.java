@@ -48,8 +48,9 @@ public class HeapFile implements GlobalConst {
    * requires no file library entry.
    */
   public HeapFile(String name) {
-	  throw new UnsupportedOperationException("Not implemented");
+	  //throw new UnsupportedOperationException("Not implemented");
 
+	  PageId pageId = Minibase.DiskManager.get_file_entry(name);
   } // public HeapFile(String name)
 
   /**
