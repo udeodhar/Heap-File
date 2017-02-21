@@ -1,5 +1,7 @@
 package heap; 
 
+import java.util.LinkedList;
+
 import global.GlobalConst;
 import global.Minibase;
 import global.PageId;
@@ -38,7 +40,10 @@ public class HeapFile implements GlobalConst {
 
   /** First page of the directory for this heap file. */
   protected PageId headId;
-
+  
+  /** Linked list to maintain the list of directory pages*/
+  LinkedList<DirPage> dirPages;
+  
   // --------------------------------------------------------------------------
 
   /**
@@ -48,9 +53,14 @@ public class HeapFile implements GlobalConst {
    * requires no file library entry.
    */
   public HeapFile(String name) {
-	  //throw new UnsupportedOperationException("Not implemented");
-
-	  PageId pageId = Minibase.DiskManager.get_file_entry(name);
+	  dirPages = new LinkedList<>();
+	  this.fileName = name;
+	  
+	  if(name == null)
+		  this.isTemp = true;
+	  else {
+		  Minibase.DiskManager.add_file_entry(name, new PageId(FIRST_PAGEID));
+	  }
   } // public HeapFile(String name)
 
   /**
